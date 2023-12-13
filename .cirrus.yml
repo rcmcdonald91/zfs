@@ -22,5 +22,4 @@ build_task:
     - gpart show
   configure_script:
     # try unloading base zfs module if loaded
-    - kldunload zfs; true
-    - kldload zfs;
+    - kldunload zfs || true
