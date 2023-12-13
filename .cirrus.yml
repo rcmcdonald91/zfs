@@ -8,7 +8,6 @@ build_task:
     platform: freebsd
     cpu: 4
     memory: 8G
-    disk: 40
   matrix:
     compute_engine_instance:
       image: family/freebsd-12-4
@@ -20,5 +19,9 @@ build_task:
       image: family/freebsd-15-0-snap
   info_script:
     - uname -a
-    - kldload zfs
-    - kldstat
+    - gpart show
+  configure_script:
+    # try unloading base zfs module is loaded
+    - kldstat -q -m zfs && kldunload zfs; true
+    # only proceed if zfs is definitely not loaded
+    - ! kldstat -q -m zfs
