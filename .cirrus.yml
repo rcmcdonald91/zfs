@@ -3,37 +3,27 @@ env:
   ARCH: amd64
 
 build_task:
+  compute_engine_instance:
+    image_project: freebsd-org-cloud-dev
+    platform: freebsd
+    cpu: 4
+    memory: 8G
+    disk: 40
   matrix:
     # Image list available via
     # gcloud compute images list --project freebsd-org-cloud-dev --no-standard-images
     compute_engine_instance:
-      image_project: freebsd-org-cloud-dev
       image: family/freebsd-12-4
-      platform: freebsd
-      cpu: 4
-      memory: 8G
-      disk: 40
     compute_engine_instance:
-      image_project: freebsd-org-cloud-dev
       image: family/freebsd-13-2
-      platform: freebsd
-      cpu: 4
-      memory: 8G
-      disk: 40
     compute_engine_instance:
-      image_project: freebsd-org-cloud-dev
       image: family/freebsd-14-0
-      platform: freebsd
-      cpu: 4
-      memory: 8G
-      disk: 40
     compute_engine_instance:
-      image_project: freebsd-org-cloud-dev
       image: family/freebsd-15-0-snap
-      platform: freebsd
-      cpu: 4
-      memory: 8G
-      disk: 40
+  info_script:
+    - uname -a
+    - gpart show
+    - df -h
   prepare_script:
     - pkg install -y autoconf automake libtool gettext-runtime gmake ksh93 py39-packaging py39-cffi py39-sysctl
   configure_script:
