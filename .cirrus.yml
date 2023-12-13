@@ -11,8 +11,6 @@ build_task:
     disk: 40
   matrix:
     compute_engine_instance:
-      image: family/freebsd-12-4
-    compute_engine_instance:
       image: family/freebsd-13-2
     compute_engine_instance:
       image: family/freebsd-14-0
@@ -33,5 +31,7 @@ build_task:
   install_script:
     - gmake install
   load_script:
+    - dmesg -c >/dev/null
     - kldload openzfs.ko
     - kldstat -n openzfs.ko
+    - dmesg -a
