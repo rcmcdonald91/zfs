@@ -10,28 +10,28 @@ build_task:
       image_project: freebsd-org-cloud-dev
       image: family/freebsd-12-4
       platform: freebsd
-      cpu: 8
+      cpu: 4
       memory: 8G
       disk: 40
     compute_engine_instance:
       image_project: freebsd-org-cloud-dev
       image: family/freebsd-13-2
       platform: freebsd
-      cpu: 8
+      cpu: 4
       memory: 8G
       disk: 40
     compute_engine_instance:
       image_project: freebsd-org-cloud-dev
       image: family/freebsd-14-0
       platform: freebsd
-      cpu: 8
+      cpu: 4
       memory: 8G
       disk: 40
     compute_engine_instance:
       image_project: freebsd-org-cloud-dev
       image: family/freebsd-15-0-snap
       platform: freebsd
-      cpu: 8
+      cpu: 4
       memory: 8G
       disk: 40
   prepare_script:
