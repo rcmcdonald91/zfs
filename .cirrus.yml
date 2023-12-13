@@ -6,14 +6,34 @@ build_task:
   matrix:
     # Image list available via
     # gcloud compute images list --project freebsd-org-cloud-dev --no-standard-images
-    freebsd_instance:
-      image_family: freebsd-12-4
-    freebsd_instance:
-      image_family: freebsd-13-2
-    freebsd_instance:
-      image_family: freebsd-14-0
-    freebsd_instance:
-      image_family: freebsd-15-0-snap
+    compute_engine_instance:
+      image_project: freebsd-org-cloud-dev
+      image: family/freebsd-12-4
+      platform: freebsd
+      cpu: 8
+      memory: 8G
+      disk: 40
+    compute_engine_instance:
+      image_project: freebsd-org-cloud-dev
+      image: family/freebsd-13-2
+      platform: freebsd
+      cpu: 8
+      memory: 8G
+      disk: 40
+    compute_engine_instance:
+      image_project: freebsd-org-cloud-dev
+      image: family/freebsd-14-0
+      platform: freebsd
+      cpu: 8
+      memory: 8G
+      disk: 40
+    compute_engine_instance:
+      image_project: freebsd-org-cloud-dev
+      image: family/freebsd-15-0-snap
+      platform: freebsd
+      cpu: 8
+      memory: 8G
+      disk: 40
   prepare_script:
     - pkg install -y autoconf automake libtool gettext-runtime gmake ksh93 py39-packaging py39-cffi py39-sysctl
   configure_script:
