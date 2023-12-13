@@ -1,5 +1,6 @@
 env:
   CIRRUS_CLONE_DEPTH: 1
+  CIRRUS_LOG_TIMESTAMP: true
   ARCH: amd64
 
 build_task:
@@ -10,6 +11,8 @@ build_task:
     memory: 8G
     disk: 40
   matrix:
+    compute_engine_instance:
+      image: family/freebsd-12-4
     compute_engine_instance:
       image: family/freebsd-13-2
     compute_engine_instance:
@@ -24,14 +27,11 @@ build_task:
     - pkg install -y autoconf automake libtool gettext-runtime gmake ksh93 py39-packaging py39-cffi py39-sysctl
   configure_script:
     - env MAKE=gmake ./autogen.sh
-    # --with-config="all" to build kernel and userland bits
     - env MAKE=gmake ./configure --with-config="all" --with-python=3.9
   build_script:
-    - gmake -j `sysctl -n kern.smp.cpus`
+    - gmake -j $(sysctl -n kern.smp.cpus)
   install_script:
     - gmake install
   load_script:
-    - dmesg -c >/dev/null
     - kldload openzfs.ko
-    - kldstat -n openzfs.ko
-    - dmesg -a
+    - kldstat
