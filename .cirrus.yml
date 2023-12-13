@@ -1,6 +1,5 @@
 env:
   CIRRUS_CLONE_DEPTH: 1
-  CIRRUS_LOG_TIMESTAMP: true
   ARCH: amd64
 
 build_task:
@@ -21,17 +20,5 @@ build_task:
       image: family/freebsd-15-0-snap
   info_script:
     - uname -a
-    - gpart show
-    - df -h
-  prepare_script:
-    - pkg install -y autoconf automake libtool gettext-runtime gmake ksh93 py39-packaging py39-cffi py39-sysctl
-  configure_script:
-    - env MAKE=gmake ./autogen.sh
-    - env MAKE=gmake ./configure --with-config="all" --with-python=3.9
-  build_script:
-    - gmake -j $(sysctl -n kern.smp.cpus)
-  install_script:
-    - gmake install
-  load_script:
-    - kldload openzfs.ko
+    - kldload zfs
     - kldstat
