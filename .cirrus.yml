@@ -10,16 +10,18 @@ build_task:
     memory: 8G
   matrix:
     compute_engine_instance:
-      image: family/freebsd-12-4
-    compute_engine_instance:
-      image: family/freebsd-13-2
-    compute_engine_instance:
-      image: family/freebsd-14-0
-    compute_engine_instance:
       image: family/freebsd-15-0-snap
   info_script:
     - uname -a
     - gpart show
-  configure_script:
-    # try unloading base zfs module if loaded
+  prepare_script:
+    - pkg install -y autoconf automake libtool gettext-runtime gmake ksh93 py39-packaging py39-cffi py39-sysctl
+    # ensure that base zfs is not loaded
     - kldunload zfs || true
+  configure_script:
+    - env MAKE=gmake ./autogen.sh
+    - env MAKE=gmake ./configure --with-config="all" --with-python=3.9
+  build_script:
+    - gmake -j$(sysctl -n kern.smp.cpus)
+  install_script:
+    - gmake install
