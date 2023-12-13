@@ -21,7 +21,6 @@ build_task:
     - uname -a
     - gpart show
   configure_script:
-    # try unloading base zfs module is loaded
-    - kldstat -q -m zfs && kldunload zfs; true
-    # only proceed if zfs is definitely not loaded
-    - ! kldstat -q -m zfs
+    # try unloading base zfs module if loaded
+    - kldunload zfs; true
+    - kldload zfs;
