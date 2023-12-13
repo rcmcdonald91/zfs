@@ -10,6 +10,8 @@ build_task:
     memory: 8G
   matrix:
     compute_engine_instance:
+      image: family/freebsd-14-0
+    compute_engine_instance:
       image: family/freebsd-15-0-snap
   info_script:
     - "uname -a"
