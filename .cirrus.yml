@@ -10,8 +10,6 @@ build_task:
     memory: 8G
     disk: 40
   matrix:
-    # Image list available via
-    # gcloud compute images list --project freebsd-org-cloud-dev --no-standard-images
     compute_engine_instance:
       image: family/freebsd-12-4
     compute_engine_instance:
@@ -34,3 +32,6 @@ build_task:
     - gmake -j `sysctl -n kern.smp.cpus`
   install_script:
     - gmake install
+  load_script:
+    - kldload openzfs.ko
+    - kldstat -n openzfs.ko
