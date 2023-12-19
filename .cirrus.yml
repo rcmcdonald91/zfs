@@ -10,6 +10,10 @@ build_task:
     memory: 8G
   matrix:
     compute_engine_instance:
+      image: family/freebsd-12-4
+    compute_engine_instance:
+      image: family/freebsd-13-2
+    compute_engine_instance:
       image: family/freebsd-14-0
     compute_engine_instance:
       image: family/freebsd-15-0-snap
@@ -17,4 +21,3 @@ build_task:
     - "uname -a"
     - "gpart show"
     - "kldload zfs.ko"
-    - "dmesg"
